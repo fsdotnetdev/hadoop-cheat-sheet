@@ -1,4 +1,4 @@
-# Hadoop
+# Hadoop Cheat Sheet
 
 # Table of Content
 * Chapter 1 : Type of Application that Big Data
