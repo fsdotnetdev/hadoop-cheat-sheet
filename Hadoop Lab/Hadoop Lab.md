@@ -176,7 +176,7 @@ hive> create table [table_name] ([column_name] [type], ...) row format delimited
 hive> drop table [table_name] ;
 ```
 
-* Hive create users table
+* Hive Create Users Table
 ```bash
 # wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
 # unzip ml-100k.zip
@@ -191,7 +191,7 @@ hive> load data inpath '/user/cloudera/movielens/u.user' overwrite into table us
 hive> select zipcode, count(1) as count, avg(age) as age from users group by zipcode order by count desc ;
 ```
 
-## hive create weblogtest table
+## Hive Create Weblogtest Table
 ```bash
 # wget https://s3.amazonaws.com/imcbucket/data/nasa.dat
 # hadoop fs -mkdir /user/cloudera/weblog
