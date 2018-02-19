@@ -1,71 +1,70 @@
-# Bash Script
-Bash Script this automatic run install
-```bash
-
-```
+# Hadoop Lab
+Documentation for hadoop lab
 
 # Table of Content
-#### Head
-* 
+* Install Docker on Ubuntu 14.04 ++
+* Docker Command
+* Hadoop Command
+* Create File mapper.py
+* Create File reducer.py
+* Hadoop Count
+* Hive Command
 
-## Hadoop.sh File
+## Install Docker on Ubuntu 14.04 ++
 ```bash
 $ sudo su -
 # apt-get update
-```
-
-## install docker ubuntu 14.04 ++
-```bash
 # apt-get install docker.io
 ```
 
-## pull image from docker hub
+## Docker Command
+* Docker Pull Image
 ```bash
 # docker pull cloudera/quickstart:latest
 ```
 
-## docker show image
+* Docker Show Image
 ```bash
 # docker images -a
 ```
 
-## docker remove image
+* Docker Remove Image
 ```bash
 # docker rmi [image_name]
 ```
 
-## docker run container
+* Docker Run Container
 ```bash
 # docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092:9092 -p 2181:2181 -p 11122:11122 cloudera/quickstart /usr/bin/docker-quickstart
 ```
 
-## docker show container
+* Docker Show Container
 ```bash
 # docker ps
 # docker ps -a
 ```
 
-## docker stop container
+* Docker Stop Container
 ```bash
 # docker stop [container_id]
 ```
 
-## docker restart container
+* Docker Restart Container
 ```bash
 # docker restart [container_id]
 ```
 
-## docker remove container
+* Docker Remove Container
 ```bash
 # docker rm [container_id]
 ```
 
-## docker exec container
+* Docker Exec Container
 ```bash
 # docker exec -it [container_id] bash
 ```
 
-## hadoop
+## Hadoop Command
 ```bash
 # yum update -y
 # yum install vim -y
@@ -91,8 +90,8 @@ $ sudo su -
 # docker run
 ```
 
-## mapper.py
-======================
+## Create File mapper.py
+```bash
 #!/usr/bin/env python
 
 from operator import itemgetter
@@ -102,10 +101,10 @@ if __name__ == '__main__':
 	for line in sys.stdin:
 		for word in line.split():
 			sys.stdout.write('{0}\t1\n'.format(word))
-======================
+```
 
-## reducer.py
-======================
+## Create File reducer.py
+```bash
 #!usr/bin/env python
 
 from operator import itemgetter
@@ -127,40 +126,57 @@ if __name__ == '__main__':
 			total = val
 
 	sys.stdout.write('{0}\t{1}\n'.format(curkey, total))
-======================
+```
 
-## hadoop count
+## Hadoop Count
 ```bash
 # hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -input /user/cloudera/test.txt -output /user/cloudera/wc -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py
 ```
 
-## hive start
-```bash
-# hive
-```
-
-## hive stop
-```bash
-hive> exit ;
-```
-
-## hive
+* Hive 
 ```bash
 # hive -e 'show database'
 # hive -f exec.hql
 # hive -h
 ```
 
-## hive subcommand
+## Hive Command
+* Hive Start
+```bash
+# hive
+```
+
+* Hive Stop
+```bash
+hive> exit ;
+```
+
+* Hive Create Database
 ```bash
 hive> create database [database_name] ;
+```
+
+* Hive Show Database
+```bash
 hive> show databases ;
+```
+
+* Hive Use Database
+```bash
 hive> use [database_name] ;
+```
+
+* Hive Create Table
+```bash
 hive> create table [table_name] ([column_name] [type], ...) row format delimited fields terminated by '\t' ;
+```
+
+* Hive Drop Table
+```bash
 hive> drop table [table_name] ;
 ```
 
-## hive create users table
+* Hive create users table
 ```bash
 # wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
 # unzip ml-100k.zip
