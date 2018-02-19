@@ -8,63 +8,88 @@ Bash Script this automatic run install
 #### Head
 * 
 
-# Hadoop.sh File
-sudo su -
-apt-get update
+## Hadoop.sh File
+```bash
+$ sudo su -
+# apt-get update
+```
 
 ## install docker ubuntu 14.04 ++
-apt-get install docker.io
+```bash
+# apt-get install docker.io
+```
 
 ## pull image from docker hub
-docker pull cloudera/quickstart:latest
+```bash
+# docker pull cloudera/quickstart:latest
+```
 
 ## docker show image
-docker images -a
+```bash
+# docker images -a
+```
 
 ## docker remove image
+```bash
 # docker rmi [image_name]
+```
 
 ## docker run container
-docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092:9092 -p 2181:2181 -p 11122:11122 cloudera/quickstart /usr/bin/docker-quickstart
+```bash
+# docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092:9092 -p 2181:2181 -p 11122:11122 cloudera/quickstart /usr/bin/docker-quickstart
+```
 
 ## docker show container
+```bash
 # docker ps
 # docker ps -a
+```
 
 ## docker stop container
+```bash
 # docker stop [container_id]
+```
 
 ## docker restart container
+```bash
 # docker restart [container_id]
+```
 
 ## docker remove container
+```bash
 # docker rm [container_id]
+```
 
 ## docker exec container
+```bash
 # docker exec -it [container_id] bash
+```
 
 ## hadoop
-yum update -y
-yum install vim -y
-yum install wget -y
-cd /mnt
-vi test.txt
-:wq
-hadoop fs -help
-hadoop fs -put test.txt /user/cloudera
-hadoop fs -ls /user/cloudera
-hadoop fs -cat /user/cloudera/test.txt
-hadoop fs -get /user/cloudera/test.txt test1.txt
-hadoop fs -mkdir -p /user/cloudera/temp
-hadoop fs -cp /user/cloudera/test.txt /user/cloudera/temp/test.txt
-hadoop fs -rm /user/cloudera/temp/test.txt
-hadoop fs -rmdir /user/cloudera/temp
-hadoop fs -ls /user/cloudera
+```bash
+# yum update -y
+# yum install vim -y
+# yum install wget -y
+# cd /mnt
+# vi test.txt
+# hadoop fs -help
+# hadoop fs -put test.txt /user/cloudera
+# hadoop fs -ls /user/cloudera
+# hadoop fs -cat /user/cloudera/test.txt
+# hadoop fs -get /user/cloudera/test.txt test1.txt
+# hadoop fs -mkdir -p /user/cloudera/temp
+# hadoop fs -cp /user/cloudera/test.txt /user/cloudera/temp/test.txt
+# hadoop fs -rm /user/cloudera/temp/test.txt
+# hadoop fs -rmdir /user/cloudera/temp
+# hadoop fs -ls /user/cloudera
+```
 
 ## Lifecycle
-docker create
-docker rename
-docker run
+```bash
+# docker create
+# docker rename
+# docker run
+```
 
 ## mapper.py
 ======================
@@ -105,37 +130,64 @@ if __name__ == '__main__':
 ======================
 
 ## hadoop count
-hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -input /user/cloudera/test.txt -output /user/cloudera/wc -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py
+```bash
+# hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -input /user/cloudera/test.txt -output /user/cloudera/wc -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py
+```
 
 ## hive start
-hive
+```bash
+# hive
+```
 
 ## hive stop
-exit
+```bash
+hive> exit ;
+```
 
 ## hive
-hive -e 'show database'
-hive -f exec.hql
-hive -h
+```bash
+# hive -e 'show database'
+# hive -f exec.hql
+# hive -h
+```
 
-create database [database_name] ;
-show databases ;
-use [database_name] ;
-create table [table_name] ([column_name] [type], ...) row format delimited fields terminated by '\t' ;
-drop table [table_name] ;
+## hive subcommand
+```bash
+hive> create database [database_name] ;
+hive> show databases ;
+hive> use [database_name] ;
+hive> create table [table_name] ([column_name] [type], ...) row format delimited fields terminated by '\t' ;
+hive> drop table [table_name] ;
+```
 
-wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
-unzip ml-100k.zip
-cd ml-100k
-hadoop fs -mkdir /user/cloudera/movielens
-hadoop fs -put u.user /user/cloudera/movielens
-hive
-create table users ( user_id int, age int, gender string, occupation string, zipcode string ) row format delimited fields terminated by '|' stored as textfile ;
-show tables ;
-describe users ;
-load data inpath '/user/cloudera/movielens/u.user' overwrite into table users ;
-select zipcode, count(1) as count, avg(age) as age from users group by zipcode order by count desc ;
-create table weblongtest ( host string)
+## hive create users table
+```bash
+# wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
+# unzip ml-100k.zip
+# cd ml-100k
+# hadoop fs -mkdir /user/cloudera/movielens
+# hadoop fs -put u.user /user/cloudera/movielens
+# hadoop fs -ls
+hive> create table users ( user_id int, age int, gender string, occupation string, zipcode string ) row format delimited fields terminated by '|' stored as textfile ;
+hive> show tables ;
+hive> describe users ;
+hive> load data inpath '/user/cloudera/movielens/u.user' overwrite into table users ;
+hive> select zipcode, count(1) as count, avg(age) as age from users group by zipcode order by count desc ;
+```
+
+## hive create weblogtest table
+```bash
+# wget https://s3.amazonaws.com/imcbucket/data/nasa.dat
+# hadoop fs -mkdir /user/cloudera/weblog
+# hadoop fs -put nasa.dat /user/cloudera/weblog
+# hadoop fs -ls /user/cloudera/weblog
+hive> create table weblogtest (host string, time string, method string, object string, replycode string, size string) row format serde 'org.apache.hadoop.hive.serde2.RegexSerDe' with serdeproperties ("input.regex" = "([^\\s]+) - - \\[(.+)\\] \"([^\\s]+) (/[^\\s]*) HTTP/[^\\s]+\" ([^\\s]+) ([0-9]+)" ) stored as textfile ;
+hive> describe weblogtest ;
+hive> load data inpath '/user/cloudera/weblog/nasa.dat' overwrite into table weblogtest ;
+hive> select count(1) from weblogtest ;
+hive> select count(1) from weblogtest group by object order by count(1) as count from desc limit 10 ;
+hive> select month, count(1) as count from ( select split(time,'/')[1] as month from weblogtest ) group by month order by count desc ; )
+```
 
 ## Error Hive
 ```bash
