@@ -20,48 +20,48 @@ $ sudo su -
 ## Docker Command
 * Docker Pull Image
 ```bash
-# docker pull cloudera/quickstart:latest
+$ docker pull cloudera/quickstart:latest
 ```
 
 * Docker Show Image
 ```bash
-# docker images -a
+$ docker images -a
 ```
 
 * Docker Remove Image
 ```bash
-# docker rmi [image_name]
+$ docker rmi [image_name]
 ```
 
 * Docker Run Container
 ```bash
-# docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092:9092 -p 2181:2181 -p 11122:11122 cloudera/quickstart /usr/bin/docker-quickstart
+$ docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092:9092 -p 2181:2181 -p 11122:11122 cloudera/quickstart /usr/bin/docker-quickstart
 ```
 
 * Docker Show Container
 ```bash
-# docker ps
-# docker ps -a
+$ docker ps
+$ docker ps -a
 ```
 
 * Docker Stop Container
 ```bash
-# docker stop [container_id]
+$ docker stop [container_id]
 ```
 
 * Docker Restart Container
 ```bash
-# docker restart [container_id]
+$ docker restart [container_id]
 ```
 
 * Docker Remove Container
 ```bash
-# docker rm [container_id]
+$ docker rm [container_id]
 ```
 
 * Docker Exec Container
 ```bash
-# docker exec -it [container_id] bash
+$ docker exec -it [container_id] bash
 ```
 
 ## Hadoop Command
@@ -71,23 +71,23 @@ $ sudo su -
 # yum install wget -y
 # cd /mnt
 # vi test.txt
-# hadoop fs -help
-# hadoop fs -put test.txt /user/cloudera
-# hadoop fs -ls /user/cloudera
-# hadoop fs -cat /user/cloudera/test.txt
-# hadoop fs -get /user/cloudera/test.txt test1.txt
-# hadoop fs -mkdir -p /user/cloudera/temp
-# hadoop fs -cp /user/cloudera/test.txt /user/cloudera/temp/test.txt
-# hadoop fs -rm /user/cloudera/temp/test.txt
-# hadoop fs -rmdir /user/cloudera/temp
-# hadoop fs -ls /user/cloudera
+$ hadoop fs -help
+$ hadoop fs -put test.txt /user/cloudera
+$ hadoop fs -ls /user/cloudera
+$ hadoop fs -cat /user/cloudera/test.txt
+$ hadoop fs -get /user/cloudera/test.txt test1.txt
+$ hadoop fs -mkdir -p /user/cloudera/temp
+$ hadoop fs -cp /user/cloudera/test.txt /user/cloudera/temp/test.txt
+$ hadoop fs -rm /user/cloudera/temp/test.txt
+$ hadoop fs -rmdir /user/cloudera/temp
+$ hadoop fs -ls /user/cloudera
 ```
 
 ## Lifecycle
 ```bash
-# docker create
-# docker rename
-# docker run
+$ docker create
+$ docker rename
+$ docker run
 ```
 
 ## Create File mapper.py
@@ -130,20 +130,20 @@ if __name__ == '__main__':
 
 ## Hadoop Count
 ```bash
-# hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -input /user/cloudera/test.txt -output /user/cloudera/wc -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py
+$ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -input /user/cloudera/test.txt -output /user/cloudera/wc -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py
 ```
 
 * Hive 
 ```bash
-# hive -e 'show database'
-# hive -f exec.hql
-# hive -h
+$ hive -e 'show database'
+$ hive -f exec.hql
+$ hive -h
 ```
 
 ## Hive Command
 * Hive Start
 ```bash
-# hive
+$ hive
 ```
 
 * Hive Stop
@@ -178,12 +178,12 @@ hive> drop table [table_name] ;
 
 * Hive Create Users Table
 ```bash
-# wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
-# unzip ml-100k.zip
-# cd ml-100k
-# hadoop fs -mkdir /user/cloudera/movielens
-# hadoop fs -put u.user /user/cloudera/movielens
-# hadoop fs -ls
+$ wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
+$ unzip ml-100k.zip
+$ cd ml-100k
+$ hadoop fs -mkdir /user/cloudera/movielens
+$ hadoop fs -put u.user /user/cloudera/movielens
+$ hadoop fs -ls
 hive> create table users ( user_id int, age int, gender string, occupation string, zipcode string ) row format delimited fields terminated by '|' stored as textfile ;
 hive> show tables ;
 hive> describe users ;
@@ -193,10 +193,10 @@ hive> select zipcode, count(1) as count, avg(age) as age from users group by zip
 
 ## Hive Create Weblogtest Table
 ```bash
-# wget https://s3.amazonaws.com/imcbucket/data/nasa.dat
-# hadoop fs -mkdir /user/cloudera/weblog
-# hadoop fs -put nasa.dat /user/cloudera/weblog
-# hadoop fs -ls /user/cloudera/weblog
+$ wget https://s3.amazonaws.com/imcbucket/data/nasa.dat
+$ hadoop fs -mkdir /user/cloudera/weblog
+$ hadoop fs -put nasa.dat /user/cloudera/weblog
+$ hadoop fs -ls /user/cloudera/weblog
 hive> create table weblogtest (host string, time string, method string, object string, replycode string, size string) row format serde 'org.apache.hadoop.hive.serde2.RegexSerDe' with serdeproperties ("input.regex" = "([^\\s]+) - - \\[(.+)\\] \"([^\\s]+) (/[^\\s]*) HTTP/[^\\s]+\" ([^\\s]+) ([0-9]+)" ) stored as textfile ;
 hive> describe weblogtest ;
 hive> load data inpath '/user/cloudera/weblog/nasa.dat' overwrite into table weblogtest ;
@@ -205,8 +205,6 @@ hive> select count(1) from weblogtest group by object order by count(1) as count
 hive> select month, count(1) as count from ( select split(time,'/')[1] as month from weblogtest ) group by month order by count desc ; )
 ```
 
-## Error Hive
-```bash
 ## Error Hive
 ```bash
 FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.util.regex.PatternSyntaxException: Unclosed character class near index 110

@@ -32,6 +32,9 @@
 * Cloudera
 * Hortonworks
 
+#### Component
+* Apache Mesos
+
 ## Github
 https://github.com/bbengfort/hadoop-fundamentals
 
