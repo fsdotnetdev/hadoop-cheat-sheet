@@ -10,25 +10,20 @@
 Big Data คือ กลุ่มของข้อมูล หรือ Data Set ที่มีขนาดใหญ่และซับซ้อน ที่ไม่สามารถประมวลผลและการจัดเก็บข้อมูลได้ด้วย Traditional Data Management
 
 #### Characteristic
-ลักษณะของ Big Data จะประกอบไปด้วย 4V
-```bash
-![](/Images/Big-Data-Characteristic.png)
-```
+ลักษณะของ Big Data จะประกอบไปด้วย 5V
+![](/Images/5V.png)
 
-* Volume (Scale of the Data)
-สามารถรองรับการขยายตัวของข้อมูลขนาดใหญ่ ซึ่งจะมีขนาดตั้งแต่ Exabyte, Zettabyte, Yottabyte ขึ้นไป
+* Volume
+สามารถรองรับการขยายตัวของข้อมูลที่มีขนาดใหญ่ ซึ่งจะมีขนาดตั้งแต่ Exabyte, Zettabyte, Yottabyte ขึ้นไป
 
-* Velocity (Speed of the Data)
+* Velocity
 สามารถทำงานได้อย่างรวดเร็วและต่อเนื่อง ในเวลาที่มี Process เข้ามาจำนวนมากได้แบบ Real-Time หรือ Streaming
 
-* Variety (Deversity of the Data)
+* Variety
 สามารถรองรับข้อมูลได้หลากหลายรูปแบบ ทั้ง Structure, Unstructure, Text, Multimedia รวมถึงสามารถรับข้อมูลได้จากหลายอุปกรณ์ IoT
 
-* Veracity (Containty of the data)
+* Veracity
 สามารถเก็บข้อมูลได้อย่างถูกต้องครบถ้วน ไม่สูญหายหรือรั่วไหลออกไป และไม่เกิดความซ้ำซ้อนของข้อมูล CIA
-
-ส่วนลักษณะของ Open Data จะประกอบไปด้วย
-* Visibility
 
 * Value
 เป็นการนำข้อมูลของ Big Data มาทำให้เกิดมูลค่าหรือมีกำไร
