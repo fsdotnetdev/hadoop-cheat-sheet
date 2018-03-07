@@ -11,6 +11,7 @@ Big Data คือ กลุ่มของข้อมูล หรือ Data 
 
 #### Characteristic
 ลักษณะของ Big Data จะประกอบไปด้วย 5V
+
 ![](/Images/5V.png)
 
 * Volume
