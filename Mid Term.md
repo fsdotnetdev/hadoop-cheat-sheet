@@ -11,7 +11,9 @@ Big Data คือ กลุ่มของข้อมูล หรือ Data 
 
 #### Characteristic
 ลักษณะของ Big Data จะประกอบไปด้วย 4V
+```bash
 ![](/Images/Big-Data-Characteristic.png)
+```
 
 * Volume (Scale of the Data)
 สามารถรองรับการขยายตัวของข้อมูลขนาดใหญ่ ซึ่งจะมีขนาดตั้งแต่ Exabyte, Zettabyte, Yottabyte ขึ้นไป
@@ -27,7 +29,9 @@ Big Data คือ กลุ่มของข้อมูล หรือ Data 
 
 ส่วนลักษณะของ Open Data จะประกอบไปด้วย
 * Visibility
+
 * Value
+เป็นการนำข้อมูลของ Big Data มาทำให้เกิดมูลค่าหรือมีกำไร
 
 #### Platform
 
