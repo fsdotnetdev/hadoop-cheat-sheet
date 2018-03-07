@@ -183,7 +183,7 @@ $ unzip ml-100k.zip
 $ cd ml-100k
 $ hadoop fs -mkdir /user/cloudera/movielens
 $ hadoop fs -put u.user /user/cloudera/movielens
-$ hadoop fs -ls
+$ hadoop fs -ls /user/cloudera/movielens
 hive> create table users ( user_id int, age int, gender string, occupation string, zipcode string ) row format delimited fields terminated by '|' stored as textfile ;
 hive> show tables ;
 hive> describe users ;
@@ -216,6 +216,114 @@ FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTa
 hive> add jar ../build/contrib/hive_contrib.jar ;
 ../build/contrib/hive_contrib.jar does not exist
 Query returned non-zero code: 1, cause: ../build/contrib/hive_contrib.jar does not exist
+```
+
+## Hbase Start Service
+```bash
+# service hadoop-hbase-regionserver start
+# service hbase-master start
+https://www.cloudera.com/documentation/enterprise/5-5-x/topics/cdh_admin_hbase_start_stop.html
+```
+
+## Hbase Command
+* Hbase Start
+```bash
+$ hbase shell
+```
+
+* Hbase Stop
+```bash
+hbase> quit
+```
+
+* Hbase Create Linkshare
+```bash
+hbase> create 'linkshare','link'
+```
+
+* Hbase Show Linkshare
+```bash
+hbase> list
+```
+
+## Hbase Lab
+* Create Table
+```bash
+hbase> create 'linkshare','link'
+hbase> list
+```
+
+* Add Column Family
+```bash
+hbase> disable 'linkshare'
+hbase> alter 'linkshare','statistics'
+hbase> enable 'linkshare'
+hbase> describe 'linkshare'
+```
+
+* Insert Data
+```bash
+hbase> put 'linkshare', 'org.hbase.www', 'link:title', 'Apache Hbase'
+hbsae> put 'linkshare', 'org.hadoop.www', 'link:title', 'Apache Hadoop'
+hbase> put 'linkshare', 'org.hive.www', 'link:title', 'Apache Hive'
+```
+
+* Incremental Column
+```bash
+hbase> incr 'linkshare', 'org.hbase.www', 'statistics:share', 1
+hbase> incr 'linkshare', 'org.hbase.www', 'statistics:share', 2
+```
+
+* Get counter
+```bash
+hbase> get_counter 'linkshare', 'org.hbase.www', 'statistics:share'
+```
+
+* Get Row
+```bash
+hbase> get 'linkshare', 'org.hbase.www', 'link:title'
+hbase> get 'linkshare', 'org.hbase.www', 'link:title', 'statistics:share'
+```
+
+* Change Max Number Column
+```bash
+hbase> alter 'linkshare', { name => 'link:title', version => 4 }
+hbsae> put 'linkshare', 'org.test.www', 'link:title', 'Apache Test1'
+hbsae> put 'linkshare', 'org.test.www', 'link:title', 'Apache Test2'
+hbsae> get 'linkshare', 'org.test.www', { column => 'link:title', version => 2 }
+```
+
+* Scan Table
+```bash
+hbase> scan 'linkshare'
+hbase> scan 'linkshare', { COLUMN => 'link:title', STARTROW => 'org.hbase.www' }
+hbase> scan 'linkshare', { COLUMN => 'link:title', STARTROW => 'org.hadoop.www', ENDROW => 'org.hive.www' }
+```
+
+* Filter Scan Table
+```bash
+hbase> scan 'linkshare', { COLUMN => 'link:title', FILTER => "ValueFilter ( <=, 'binary:Apache Hbase' )" }
+hbase> scan 'linkshare', { COLUMN => 'link:title', FILTER => "ValueFilter ( >, 'binary:Apache Hbase' )" }
+```
+
+* Delete Cell
+```bash
+hbase> delete 'linkshare', 'org.hbase.www', 'link:title'
+```
+
+* Update Cell
+```bash
+hbase> put 'linkshare', 'org.hbase.www', 'link:title', 'new value'
+hbase> scan 'linkshare'
+```
+
+* Delete Table
+```bash
+hbase> create 'test', 'cf'
+hbase> list
+hbase> disable 'test'
+hbase> drop 'test'
+hbase> list
 ```
 
 ## Credit
