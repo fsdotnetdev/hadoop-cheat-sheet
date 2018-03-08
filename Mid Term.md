@@ -75,14 +75,24 @@ Big Data คือ กลุ่มของข้อมูล หรือ Data 
 
 ## Hadoop
 #### Definition
-Hadoop เป็น Open Source Framework ที่ใช้ในการทำ Parallel Processing and Storage โดยมีลักษณะการทำงานแบบ Distributed Computing ซึ่งจะแบ่งเป็น Master กับ Slave เป็นเหมือนเครื่องแม่ข่ายในการกระจายข้อมูลไปยังเครื่องลูกข่ายเพื่อช่วยกันประมวลผล Concept เดียวกับการทำงานแบบ Grid Computing
+Hadoop เป็นซอฟต์แวร์ Open Source Framework ที่ใช้ในการทำ Parallel Processing and Storage โดยมีลักษณะการทำงานแบบ Distributed Computing ซึ่งจะแบ่งเป็น Master กับ Slave เป็นเหมือนเครื่องแม่ข่ายในการกระจายข้อมูลไปยังเครื่องลูกข่ายเพื่อช่วยกันประมวลผล Concept เดียวกับการทำงานแบบ Grid Computing
 
 #### Version
-็Hadoop ได้ออก Version 1.0 และ 2.0 โดย Version 2.0 ที่ออกมาเพื่อแก้ข้อจำกัดของ Version 1.0
+Hadoop ได้ออกเวอร์ชั่น 1.0 และ 2.0 โดยเวอร์ชั่นล่าสุด 2.0 ที่ออกมาเพื่อแก้ข้อจำกัดของเวอร์ชั่น 1.0 ทำให้สถาปัตยกรรมของ Hadoop เปลี่ยนไป
+
 ![](/Images/Hadoop-Version.png)
-* Master Node มีได้แค่ 1 Node
-* Slave Node มีได้ไม่เกิน 4,000 Node
-* Batch Processing เป็นการนำข้อมูลมาเก็บรวมกันแล้วนำมา Processing ทีเดียว 
+
+Version 1.0
+* Master Node มีได้แค่ 1 Node ต่อ Cluster
+* Slave Node มีได้ไม่เกิน 4,000 Node ต่อ Cluster
+* Batch Processing เป็นการนำข้อมูลมาเก็บรวมกันแล้วนำมา Processing ทีเดียว
+* ไม่รองรับการทำงานแบบ Real Time
+* มีแค่ Component เดียวคือ Job Tracker จะแบ่งเป็น Component ย่อยได้แก่ Resource Manager ใช้จัดการ Resource ภายใน Cluser และ Application Manager ใช้จัดการพวก MapReduce
+
+Version 2.0
+* รองรับภาษา Java ตั้งแต่ JDK 7 ขึ้นไป
+* รองรับการทำงานบน Windows Azure
+* เพิ่ม YARN Component เข้ามาช่วยในการจัดการ Resource
 
 #### Vendors
 * Apache
@@ -100,7 +110,7 @@ Support .NET Framework
 * EMC2
 
 ## HDFS
-HDFS (Hadoop File System) เป็นระบบจัดเก็บไฟล์ของ Hadoop ซึ่งสามารถจัดเก็บข้อมูลแบบกระจาย Distribution ได้ เพื่อช่วยในเรื่องของการทำ Replication 
+HDFS (Hadoop Distributed File System) เป็นระบบจัดเก็บไฟล์ของ Hadoop ซึ่งสามารถจัดเก็บข้อมูลแบบกระจาย Distribution ได้ เพื่อช่วยในเรื่องของการทำ Replication 
 
 * ELO (Expect Learning Outcome)
 - CLI
@@ -125,6 +135,9 @@ http://stevekrenzel.com/finding-friends-with-mapreduce
 * [Big Data Thai MOOC](https://thaimooc.org/courses/course-v1:STOU-MOOC+stou005+2017_T2/info)
 * [Big Data Udemy](https://www.udemy.com/big-data-and-hadoop-essentials-free-tutorial/learn/v4/questions/3713846)
 * [Use Case](https://hortonworks.com/solutions/data-ingestion/)
+* [HDFS](https://www.datadoghq.com/blog/hadoop-architecture-overview/)
+* [Version](https://www.journaldev.com/8806/differences-between-hadoop1-and-hadoop2)
+* [New](https://data-flair.training/blogs/hadoop-2-x-vs-hadoop-3-x-comparison/)
 
 https://courses.cognitiveclass.ai/dashboard
 https://medium.com/swlh/what-is-big-data-af72e4f5771f
