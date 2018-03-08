@@ -2,7 +2,17 @@
 * Big Data
     - Definition
     - Characteristic
+    - What is Data
+    - Data Type
+    - Data Product
 * Hadoop
+    - Definition
+    - Vendors
+* HDFS
+* MapReduce
+* Sqoop
+* Pig
+* Oozie
 * Data Engineer vs Data Scientist
 
 ## Big Data
@@ -29,9 +39,7 @@ Big Data คือ กลุ่มของข้อมูล หรือ Data 
 * Value
 เป็นการนำข้อมูลของ Big Data มาทำให้เกิดมูลค่าหรือมีกำไร
 
-#### Platform
-
-#### Data
+#### What is Data
 เราเก็บข้อมูลไปทำไม ในสมัยก่อนเราจะนำข้อมูลที่ได้ ไปเข้าระบบ Decision Support System แต่ในปัจจุบันเราจะนำไปเข้าระบบ Digital Nervous System โดยใช้องค์ประกอบของ act, sense, interpret และ decide
 
 #### Data Type
@@ -41,15 +49,42 @@ Big Data คือ กลุ่มของข้อมูล หรือ Data 
 
 * Semi-structure
 ข้อมูลกึ่งโครงสร้าง เช่น XML (Entensible Markup Language)
+```bash
+<rec><name>Prashant Rao</name><sex>Male</sex><age>35</age></rec>
+<rec><name>Seema R.</name><sex>Female</sex><age>41</age></rec>
+<rec><name>Satish Mane</name><sex>Male</sex><age>29</age></rec>
+<rec><name>Subrato Roy</name><sex>Male</sex><age>26</age></rec>
+<rec><name>Jeremiah J.</name><sex>Male</sex><age>35</age></rec>
+```
 
 * Unstructure
 ข้อมูลไร้โครงสร้าง เช่น Facebook, Youtube
 
+## Data Product
+หากข้อมูลในเชิงการเขียนโปรแกรม เปรียบเสมือนเงินตราที่มีมูลค่า Data Product คือการรวมกันระหว่างข้อมูลและกระบวนการทางสถิติ โดยใช้การอ้างอิงหรือคาดการณ์
+
+#### Use Case
+การประยุกต์ใช้ Big Data ในภาคธุรกิจ
+* Airline
+ปัญหาของสายการบินที่พบ เช่น กระเป๋าสูญหาย ผู้โดยสารหยิบกระเป๋าผิด สายการบินล่าช้า การขอเปลี่ยนเที่ยวบิน จึงได้มีการนำ Big Data มาใช้ในการจัดการเพื่อให้เป็นสายการบินแบบ Low Cost สายการบินต้นทุนต่ำ
+
+* Hospital
+ข้อมูลที่สำคัญของโรงพยาบาล คือทะเบียนประวัติการรักษาของคนไข้ ซึ่งในแต่ละสถานพยาบาลไม่ได้ทำการอัพเดทข้อมูลซึ่งกันและกัน หรือ ไม่มีแหล่งเก็บข้อมูลกลาง รวมถึงข้อมูลอื่น ๆ เช่น ข้อมูลของตัวยา ประวัติของหมอ
+
+* Banking
+
 ## Hadoop
 #### Definition
-Hadoop เป็น Framework ที่ใช้ในการทำ parallel processing and storage
+Hadoop เป็น Open Source Framework ที่ใช้ในการทำ Parallel Processing and Storage โดยมีลักษณะการทำงานแบบ Distributed Computing ซึ่งจะแบ่งเป็น Master กับ Slave เป็นเหมือนเครื่องแม่ข่ายในการกระจายข้อมูลไปยังเครื่องลูกข่ายเพื่อช่วยกันประมวลผล Concept เดียวกับการทำงานแบบ Grid Computing
 
-#### Hadoop Vendors
+#### Version
+็Hadoop ได้ออก Version 1.0 และ 2.0 โดย Version 2.0 ที่ออกมาเพื่อแก้ข้อจำกัดของ Version 1.0
+![](/Images/Hadoop-Version.png)
+* Master Node มีได้แค่ 1 Node
+* Slave Node มีได้ไม่เกิน 4,000 Node
+* Batch Processing เป็นการนำข้อมูลมาเก็บรวมกันแล้วนำมา Processing ทีเดียว 
+
+#### Vendors
 * Apache
 เป็น Opensource โดย Ecosystem ทั้งหมดจะต้องติดตั้งเพิ่มเติมในภายหลัง
 
@@ -65,7 +100,7 @@ Support .NET Framework
 * EMC2
 
 ## HDFS
-HDFS (Hadoop File System) เป็นระบบจัดเก็บไฟล์ของ Hadoop ซึ่งสามารถจัดเก็บข้อมูลแบบกระจาย Distribution ได้ เพื่อช่วยในเรื่องของการทำ Replication
+HDFS (Hadoop File System) เป็นระบบจัดเก็บไฟล์ของ Hadoop ซึ่งสามารถจัดเก็บข้อมูลแบบกระจาย Distribution ได้ เพื่อช่วยในเรื่องของการทำ Replication 
 
 * ELO (Expect Learning Outcome)
 - CLI
@@ -89,5 +124,8 @@ http://stevekrenzel.com/finding-friends-with-mapreduce
 * [Hadoop 101](https://cognitiveclass.ai/courses/introduction-to-hadoop/)
 * [Big Data Thai MOOC](https://thaimooc.org/courses/course-v1:STOU-MOOC+stou005+2017_T2/info)
 * [Big Data Udemy](https://www.udemy.com/big-data-and-hadoop-essentials-free-tutorial/learn/v4/questions/3713846)
+* [Use Case](https://hortonworks.com/solutions/data-ingestion/)
 
 https://courses.cognitiveclass.ai/dashboard
+https://medium.com/swlh/what-is-big-data-af72e4f5771f
+https://medium.com/@Guru99/free-hadoop-tutorial-924a8ac74f86
