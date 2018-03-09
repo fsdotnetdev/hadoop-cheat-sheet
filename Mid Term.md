@@ -5,7 +5,7 @@
     - What is Data
     - Data Type
     - Data Product
-    - Data Engineer vs Data Scientist
+    - Data Science
 * Hadoop
     - Definition
     - Hadoop Version
@@ -66,6 +66,15 @@ Big Data คือ กลุ่มของข้อมูล หรือ Data 
 
 ## Data Product
 หากข้อมูลในเชิงการเขียนโปรแกรม เปรียบเสมือนเงินตราที่มีมูลค่า Data Product คือการรวมกันระหว่างข้อมูลและกระบวนการทางสถิติ โดยใช้การอ้างอิงหรือคาดการณ์
+
+## Data Science
+องค์ประกอบของ Data Science โดยหลักแล้วจะต้องประกอบไปด้วย Skill ทางด้าน BI (Business Intelligence) จะเป็นการเจาะลึกลงไปในธุรกิจนั้น Business Insight ถึงโครงสร้างขององค์กร เป้าหมาย วัฒนธรรม กลุ่มลูกค้า สินทรัพย์ขององค์กร รวมถึงรายงานทางบัญชี ตั้งแต่อดีตจนถึงปัจจุบัน มาทำเป็น Report ซึ่งจะใช้โปรแกรมยอดนิยมอย่าง PowerBI และ Skill ทางด้าน Predictive Analytic เป็นการวิเคราะห์ทำนายเหตุการณ์ในอนาคต โดยใช้แบบจำลองทางสถิติ นอกจากนั้นยังจะประกอบไปด้วย Skill ทางด้านเทคโนโลยีที่เข้ามาช่วยในการทำงานได้แก่
+* Cloud Computing
+* Big Data
+* Machine Learning
+* Data Mining
+* Statistic
+* IoT
 
 #### Use Case
 การประยุกต์ใช้ Big Data ในภาคธุรกิจ
@@ -150,8 +159,6 @@ MapReduce เป็นเครื่องมือที่ช่วยใน�
 
 ![](/Images/MapReduce-Example.png)
 
-http://stevekrenzel.com/finding-friends-with-mapreduce
-
 ## Pig
 ใช้ในการเขียนภาษา Script จะมีตัวดำเนินการหรือ Operator โดยปกติจะต้องรู้โครงสร้างของภาษาในการเขียน ซึ่งจะมีลักษณะที่ยาวทำให้ไม่สะดวกในการจำ เช่น Source, Group, Filter, Print การใช้งานจะนำไปใช้ในการทำ ETL (Extract Transform Load) เป็นการดึงข้อมูลจาก Data Warehouse ซึ่งสามารถเก็บข้อมูลได้หลากหลายรูปแบบ ไปแปลงให้เป็นรูปแบบเดียวกัน แล้วนำข้อมูลที่ได้แสดงออกมาเป็น Report เพื่อนำข้อมูลไปวิเคราะห์ต่อไป ในการ Implement จะใช้ในการวิเคราะห์ Log ต่าง ๆ จะใช้คู่กับ Hive
 
@@ -173,8 +180,7 @@ http://stevekrenzel.com/finding-friends-with-mapreduce
 ## Credit
 * [Big Data 101](https://cognitiveclass.ai/courses/what-is-big-data/)
 * [Hadoop 101](https://cognitiveclass.ai/courses/introduction-to-hadoop/)
-* [Big Data Thai MOOC](https://thaimooc.org/courses/course-v1:STOU-MOOC+stou005+2017_T2/info)
-* [Big Data Udemy](https://www.udemy.com/big-data-and-hadoop-essentials-free-tutorial/learn/v4/questions/3713846)
+* [Thai MOOC](https://thaimooc.org/courses/course-v1:STOU-MOOC+stou005+2017_T2/info)
 * [Use Case](https://hortonworks.com/solutions/data-ingestion/)
 * [HDFS](https://www.datadoghq.com/blog/hadoop-architecture-overview/)
 * [Version](https://www.journaldev.com/8806/differences-between-hadoop1-and-hadoop2)
@@ -188,6 +194,7 @@ http://stevekrenzel.com/finding-friends-with-mapreduce
 * [MapReduce Full](https://0x0fff.com/hadoop-mapreduce-comprehensive-description/)
 * [HDFS Architecture](https://data-flair.training/blogs/hadoop-hdfs-architecture/)
 * [DFS](https://www.cs.rutgers.edu/~pxk/417/notes/16-dfs.html)
+* [Social Sentiment](https://hortonworks.com/tutorial/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/)
 
 https://www.edureka.co/blog/apache-hadoop-hdfs-architecture/
 https://www.gridgain.com/resources/blog/gridgain-hadoop-differences-synergies
