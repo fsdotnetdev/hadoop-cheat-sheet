@@ -138,7 +138,7 @@ HDFS (Hadoop Distributed File System) เป็นระบบจัดเก็
 #### JobTracker
 เป็นตัวติดตามงานและกระจายงาน
 
-### TaskTracker
+#### TaskTracker
 
 ![](/Images/JobTracker.png)
 
