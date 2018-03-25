@@ -189,6 +189,29 @@ move data
 ## Oozie
 การต้ังเวลาการทำงาน Job Execution
 
+## Run Service
+ลำดับการรัน Service ต่าง ๆ บน Hadoop
+1. zookeeper
+2. datanode
+3. journalnode
+4. namenode
+5. secondarynamenode
+6. hadoop-httpfs
+7. historyserver
+8. nodemanager
+9. resourcemanager
+10. hbase-master
+11. hive-metastore
+12. hive-server2
+13. sqoop
+14. spark-history-server
+15. regionserver
+16. hue
+17. statestored
+18. solr
+19. catalogd
+20. impalad
+
 ## Configuration
 * hadoop-env.sh
 * core-site.xml

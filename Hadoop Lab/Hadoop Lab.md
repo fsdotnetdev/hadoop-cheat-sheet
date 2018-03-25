@@ -17,46 +17,16 @@ $ sudo su -
 # apt-get install docker.io
 ```
 
-## Docker Command
+## Docker
 * Docker Pull Image
 ```bash
 $ docker pull cloudera/quickstart:latest
 ```
 
-* Docker Show Image
-```bash
-$ docker images -a
-```
-
-* Docker Remove Image
-```bash
-$ docker rmi [image_name]
-```
-
 * Docker Run Container
 ```bash
 $ docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092:9092 -p 2181:2181 -p 11122:11122 cloudera/quickstart /usr/bin/docker-quickstart
-```
-
-* Docker Show Container
-```bash
-$ docker ps
-$ docker ps -a
-```
-
-* Docker Stop Container
-```bash
-$ docker stop [container_id]
-```
-
-* Docker Restart Container
-```bash
-$ docker restart [container_id]
-```
-
-* Docker Remove Container
-```bash
-$ docker rm [container_id]
+$ docker run -v /root:/mnt -e HOST_HOSTNAME=quickstart.cloudera --hostname=quickstart.cloudera --privileged=true -it -p 9092:9092 -p 2181:2181 -p 11122:11122 -p 8080:8080 -p 8440:8440 -p 8441:8441 fsdotnet/hadoop /usr/bin/docker-quickstart
 ```
 
 * Docker Exec Container
@@ -66,13 +36,13 @@ $ docker exec -it [container_id] bash
 
 ## Hadoop Command
 ```bash
-# yum update -y
-# yum install vim -y
-# yum install wget -y
-# cd /mnt
-# vi test.txt
-$ hadoop fs -help
-$ hadoop fs -put test.txt /user/cloudera
+# yum install vim wget -y
+# vi /mnt/test.txt
+# service hadoop-hdfs-datanode start
+# service hadoop-hdfs-namenode start
+# hive --service metastore 
+# service hive-server2 start
+$ hadoop fs -put /mnt/test.txt /user/cloudera
 $ hadoop fs -ls /user/cloudera
 $ hadoop fs -cat /user/cloudera/test.txt
 $ hadoop fs -get /user/cloudera/test.txt test1.txt
@@ -83,14 +53,12 @@ $ hadoop fs -rmdir /user/cloudera/temp
 $ hadoop fs -ls /user/cloudera
 ```
 
-## Lifecycle
+## Fix NameNode is in Safe Mode
 ```bash
-$ docker create
-$ docker rename
-$ docker run
+$ sudo -u hdfs hadoop dfsadmin -safemode leave
 ```
 
-## Create File mapper.py
+## Create File mapper.py in /mnt
 ```bash
 #!/usr/bin/env python
 
@@ -103,7 +71,7 @@ if __name__ == '__main__':
 			sys.stdout.write('{0}\t1\n'.format(word))
 ```
 
-## Create File reducer.py
+## Create File reducer.py in /mnt
 ```bash
 #!usr/bin/env python
 
@@ -326,8 +294,109 @@ hbase> drop 'test'
 hbase> list
 ```
 
+## Ambari Server
+* Get Repo
+```bash
+$ wget -nv http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.2.2.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
+```
+* Show Repo
+```bash
+yum repolist
+```
+
+* Install
+```bash
+# yum install ambari-server
+```
+
+* Setup
+```bash
+# ambari-server setup
+```
+
+* SSH Key
+```bash
+# ssh-keygen cd home/damstream/.ssh cat id_rsa.pub > authorized_keys chmod 700 ~/.ssh chmod 600 ~/.ssh/authorized_keys
+```
+
+* Start Service
+```bash
+# service postgresql start
+# service ambari-server start
+```
+
+* Error
+```bash
+Native memory allocation (mmap) failed to map 402653184 bytes for committing reserved memory
+```
+
+* Fix
+```bash
+# sysctl -w vm.max_map_count=262144
+```
+
+* Port
+```bash
+Ambari Server : 8080 http  (Web Interface & REST API)
+Ambari Server : 8440 https (Handshake Port)
+Ambari Server : 8441 https (Heartbeat Port)
+```
+
+## MySQL
+* Create Database
+```bash
+# mysql -u root -p cloudera
+mysql> create database energydata ;
+mysql> use energydata ;
+mysql> create table avgprice_by_state (
+	year INT NOT NULL,
+	state VARCHAR(5) NOT NULL,
+	sector VARCHAR(255),
+	residential DECIMAL(10,2),
+	industrial DECIMAL(10,2),
+	transportation DECIMAL(10,2),
+	other DECIMAL(10,2),
+	total DECIMAL(10,2)) ;
+mysql> quit ;
+```
+
+* MySQL Import
+```bash
+# cd /mnt
+# wget https://github.com/bbengfort/hadoop-fundamentals/raw/data/avgprice_kwh_state.zip
+# wget https://github.com/bbengfort/hadoop-fundamentals/blob/master/data/avgprice_kwh_state.zip
+# unzip avgprice_kwh_state.zip
+# mysql -h localhost -uroot -pcloudera --local-infile=1
+mysql> load data local infile '/mnt/avgprice_kwh_state.csv' into table avgprice_by_state fields terminated by '.' lines terminated by '\n' ignore 1 lines ;
+mysql> quit ;
+```
+
+* Sqoop Import
+```bash
+# sqoop import --connect jdbc:mysql://localhost:3306/energydata --username root --password cloudera --table avgprice_by_state --target-dir /user/cloudera/energydata -m 1
+# hadoop fs -cat /user/cloudera/energydata/part-m-00000
+```
+
+* 
+```bash
+# hadoop fs -rm -r /user/root/avgprice_by_state
+# sqoop import --connect jdbc:mysql://localhost:3306/energydata --username root --password cloudera --table avgprice --hive-import -m 1
+hive> select * from avgprice ;
+```
+
+----------------------------------------------------------------------
+
+
+
 ## Credit
 http://www.cs.carleton.edu/faculty/dmusican/cs348/hadoop/hadoopLab.html
 https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html
 https://www.cloudera.com/developers/cloudera-labs.html
 https://www.cloudera.com/documentation.html
+
+https://www.slideshare.net/justiceform/manage-hadoop-cluster-with-ambari
+https://github.com/ekhtiar/DamStream/wiki/Installing-Ambari-on-Centos-7
+https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.6.1
+
+Tool
+https://streamsets.com/products/sdc
