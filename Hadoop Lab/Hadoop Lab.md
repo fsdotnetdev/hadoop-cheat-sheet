@@ -345,7 +345,7 @@ Ambari Server : 8441 https (Heartbeat Port)
 ## MySQL
 * Create Database
 ```bash
-# mysql -u root -p cloudera
+# mysql -uroot -pcloudera
 mysql> create database energydata ;
 mysql> use energydata ;
 mysql> create table avgprice_by_state (
@@ -356,18 +356,19 @@ mysql> create table avgprice_by_state (
 	industrial DECIMAL(10,2),
 	transportation DECIMAL(10,2),
 	other DECIMAL(10,2),
-	total DECIMAL(10,2)) ;
+	total DECIMAL(10,2)
+) ;
 mysql> quit ;
 ```
 
 * MySQL Import
 ```bash
 # cd /mnt
-# wget https://github.com/bbengfort/hadoop-fundamentals/raw/data/avgprice_kwh_state.zip
-# wget https://github.com/bbengfort/hadoop-fundamentals/blob/master/data/avgprice_kwh_state.zip
+# wget https://github.com/bbengfort/hadoop-fundamentals/raw/master/data/avgprice_kwh_state.zip
 # unzip avgprice_kwh_state.zip
 # mysql -h localhost -uroot -pcloudera --local-infile=1
-mysql> load data local infile '/mnt/avgprice_kwh_state.csv' into table avgprice_by_state fields terminated by '.' lines terminated by '\n' ignore 1 lines ;
+mysql> use energydata ;
+mysql> load data local infile '/mnt/avgprice_kwh_state.csv' into table avgprice_by_state fields terminated by ',' lines terminated by '\n' ignore 1 lines ;
 mysql> quit ;
 ```
 
@@ -377,11 +378,92 @@ mysql> quit ;
 # hadoop fs -cat /user/cloudera/energydata/part-m-00000
 ```
 
-* 
+* Hive Import
 ```bash
 # hadoop fs -rm -r /user/root/avgprice_by_state
-# sqoop import --connect jdbc:mysql://localhost:3306/energydata --username root --password cloudera --table avgprice --hive-import -m 1
+# sqoop import --connect jdbc:mysql://localhost:3306/energydata --username root --password cloudera --table avgprice_by_state --hive-table avgprice --hive-import -m 1
+# hive
 hive> select * from avgprice ;
+```
+
+* Hbase Import
+```bash
+# mysql -uroot -pcloudera
+mysql> create database country_db ;
+mysql> use country_db ;
+mysql> create table country_tbl (
+	id int not null,
+	country varchar(50),
+	primary key (id)
+) ;
+mysql> insert into country_tbl values (1, 'USA') ;
+mysql> insert into country_tbl values (2, 'CANADA') ;
+mysql> insert into country_tbl values (3, 'JAPAN') ;
+mysql> insert into country_tbl values (4, 'ENGLAND') ;
+mysql> insert into country_tbl values (5, 'THAILAND') ;
+mysql> select * from country_tbl ;
+mysql> quit ;
+```
+
+* Sqoop Import
+```bash
+# sqoop import --connect jdbc:mysql://localhost:3306/country_db --username root --password cloudera --table country_tbl --hbase-table country --column-family country-cf --hbase-row-key id --hbase-create-table -m 1
+# hbase shell
+hbase> scan 'country'
+```
+
+* Ingestion Product Impression Data
+```bash
+# cd /mnt
+# wget https://raw.githubusercontent.com/bbengfort/hadoop-fundamentals/master/flume/setup.sh
+```
+
+* Edit setup.sh
+```bash
+#!/bin/bash
+hadoop fs -mkdir -p /user/cloudera/impressions/
+hadoop fs -chmod 1777 /user/cloudera/impressions/
+
+mkdir /tmp/impressions
+chmod 777 /tmp/impressions
+mkdir /tmp/flume
+chmod 1777 /tmp/flume
+```
+
+* Run setup.sh
+```bash
+# sh setup.sh
+```
+
+* Download Python
+```bash
+# cd /mnt
+# wget https://raw.githubusercontent.com/bbengfort/hadoop-fundamentals/master/flume/impression_tracker.py
+```
+
+* Edit impression_tracker.py
+```bash
+#!/usr/bin/env python
+```
+
+* Change Permission impression_tracker.py
+```bash
+# chmod +x impression_tracker.py
+```
+
+* Download Examples Configuration Files
+```bash
+# cd /mnt
+# wget https://raw.githubusercontent.com/bbengfort/hadoop-fundamentals/master/flume/client.conf
+# wget https://raw.githubusercontent.com/bbengfort/hadoop-fundamentals/master/flume/collector.conf
+```
+
+* Running
+```bash
+# flume-ng agent --name collector --conf . --conf-file ./collector.conf
+# flume-ng agent --name client --conf . --conf-file ./client.conf
+# hadoop fs -ls /user/cloudera/impressions
+# hadoop fs -cat /user/cloudera/impressions
 ```
 
 ----------------------------------------------------------------------

@@ -253,13 +253,36 @@ During the replication process, a block of data is written to all specified Data
 When loading data into HDFS, data is held at the NameNode until the block is filled and then the data is sent to a DataNode. True or false?
 - False
 
-root password
+
+## Preruquisite
+* IBM
+```bash
+username: root
+password: password
 
 hosts file
 ip  rvm.svl.ibm.com
 
-ip:8080
-admin admin
+http://rvm.svl.ibm.com:8080/
+username: admin
+password: admin
+
+https://www.cloudera.com/downloads/quickstart_vms/5-13.html
+```
+
+* Cloudera
+```bash
+https://www.cloudera.com/developers/get-started-with-hadoop-tutorial.html
+
+RAM 4
+
+username: cloudera
+password: cloudera
+```
+
+
+https://www.wellform.cc/big-data/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87-hadoop-%E0%B9%81%E0%B8%9A%E0%B8%9A-step-by-step-%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A/
+http://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-single-node-cluster/
 
 https://www.edureka.co/blog/apache-hadoop-hdfs-architecture/
 https://www.gridgain.com/resources/blog/gridgain-hadoop-differences-synergies
